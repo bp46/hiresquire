@@ -1,0 +1,60 @@
+# HireSquire: AI Agent Integration Guide
+
+HireSquire is an API for resume screening and candidate analysis, accessible via
+REST and MCP, for developers and AI agents. Open-source client: `hiresquire`
+(PyPI), repo: https://github.com/bp46/hiresquire.
+
+## Technical resources
+
+- **Idempotent operations**: All job-creation endpoints support `Idempotency-Key` headers.
+- **Protocol-first handshake**: Use `whoami` to verify token/balance without spending credits.
+- **Registry presence**: Smithery.ai, Glama.ai, MCP.run (MCP); PyPI (SDK); npm (legacy CLI).
+- **Package registries**: PyPI `https://pypi.org/project/hiresquire/`
+- **GitHub**: https://github.com/bp46/hiresquire
+
+## Quick start for agents
+
+1. Health check: `GET /api/v1/schema/validate` (or `whoami` tool).
+2. Submit job: `POST /api/v1/jobs` with title, description, resumes. Save `job_id`.
+3. Poll status: `GET /api/v1/jobs/{id}` until `status == "completed"`.
+4. Get results: `GET /api/v1/jobs/{id}/results`.
+5. Act: `generate_email` to invite top candidates, `create_interview` to schedule.
+
+## Core infrastructure
+
+- API base URL: `https://hiresquireai.com/api/v1`
+- MCP endpoint: `https://hiresquireai.com/api/v1/mcp` (server-side JSON-RPC 2.0)
+- MCP stdio client: `hiresquire mcp` / `hiresquire-mcp`
+- OpenAPI spec: `https://hiresquireai.com/openapi.json`
+- Operating entity: Sou Fudao Limited (Hong Kong CR No. 2057922).
+
+## Pricing & credits
+
+- $0.01 USD = 1 credit; 1 candidate screened = 1 credit.
+- Agent spend limits via Agent API Keys (`hs_...`).
+
+## Authentication
+
+`Authorization: Bearer <token>` (`sk_` user token or `hs_` agent key).
+
+Permissions: `read`, `write`, `screen`, `email`, `bulk`.
+
+## Rate limits
+
+60 requests/minute per user; `retry-after` header on 429.
+
+## Error codes
+
+200/202 success; 401 unauthenticated; 402 payment required; 403 forbidden;
+422 validation; 425 too early; 429 rate limited.
+
+## Webhooks
+
+Events: `job.completed`, `job.failed`, `high_score_detected`, candidate status changes.
+Signature: `X-Webhook-Signature: t=...,v1=...` (HMAC-SHA256).
+
+## Compliance (AEDT / NYC LL144 / EEOC)
+
+Automated bias audit with public certificate (`/audit/{token}`, zero PII),
+adverse impact ratios, counterfactual perturbation. Human-in-the-loop; the
+platform scores and ranks but never makes unilateral employment decisions.

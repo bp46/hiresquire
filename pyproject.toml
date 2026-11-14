@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hiresquire"
+version = "2.0.0"
+description = "HireSquire AI-powered candidate screening: unified Python SDK, CLI, and MCP server"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+dependencies = [
+    "httpx>=0.24.0",
+    "pydantic>=2.0",
+    "typer>=0.9",
+    "rich>=13.0",
+    "mcp>=1.0,<2",
+    "pypdf>=4.0",
+    "python-docx>=0.8",
+]
+
+[project.optional-dependencies]
+pdf = []
+docx = []
+all = []
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "respx>=0.21.0",
+    "typer[all]>=0.9",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/bp46/hiresquire"
+Documentation = "https://hiresquireai.com/docs/api"
+AgentDocs = "https://hiresquireai.com/docs/agents"
+Support = "https://hiresquireai.com/docs"
+Repository = "https://github.com/bp46/hiresquire"
+Issues = "https://github.com/bp46/hiresquire/issues"
+
+[project.scripts]
+hiresquire = "hiresquire.cli:main"
+hiresquire-mcp = "hiresquire.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["hiresquire*"]
+
+[tool.setuptools.package-data]
+hiresquire = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+ignore = [
+    # PEP 604 union syntax (X | None) requires py3.10+; we target py39.
+    "FA100",
+    "UP006",
+    # PEP 585 builtin generics (dict[str, X]) fine on py39 but flagged.
+    "UP035",
+    # Intentional best-effort / silent-exception patterns in resume parsing.
+    "BLE001",
+    "S110",
+    "SIM102",
+    # __enter__/__exit__ signature suggestions; string forward refs are fine.
+    "PYI034",
+    "PYI036",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

@@ -1,0 +1,93 @@
+# HireSquire API - Comprehensive AI Agent Documentation
+
+Primary keywords: autonomous recruiting, AI headhunter toolkit, programmatic candidate sourcing, agentic workflows, resume screening API, candidate scoring model, HireSquire Python SDK, HireSquire CLI, MCP recruiting server.
+
+## Discovery & distribution
+
+- SDK (PyPI): https://pypi.org/project/hiresquire/
+- Repo: https://github.com/bp46/hiresquire
+- OpenAPI spec: https://hiresquireai.com/openapi.json
+- MCP (server-side JSON-RPC): https://hiresquireai.com/api/v1/mcp
+- MCP (stdio client): `hiresquire mcp` / `hiresquire-mcp`
+
+## Authentication
+
+`Authorization: Bearer <token>`. Tokens from the dashboard (`/profile` → API Tokens).
+Agent keys (`hs_...`) support spend limits and scoped permissions
+(`read`, `write`, `screen`, `email`, `bulk`).
+
+## Basic workflow
+
+1. `GET /api/v1/schema/validate` — verify token + balance (free).
+2. `POST /api/v1/jobs` — submit screening job. Returns `job_id`.
+3. `GET /api/v1/jobs/{id}` — poll until `completed`.
+4. `GET /api/v1/jobs/{id}/results` — candidate scores/summaries.
+5. `POST /api/v1/jobs/{id}/generate-email` — outreach.
+6. `POST /api/v1/interviews` — schedule.
+
+## Response codes
+
+- 202 Accepted: job created, poll required
+- 200 OK: success
+- 401 Unauthorized: invalid token
+- 402 Payment Required: agent spend limit reached
+- 403 Forbidden: insufficient permissions
+- 422 Unprocessable Entity: validation error
+- 425 Too Early: job still processing
+- 429 Too Many Requests: rate limited
+
+## Endpoints (selected)
+
+### POST /api/v1/jobs
+
+Body: `title` (max 255), `description` (min 50), `resumes` (array of
+`{filename, content}`), optional `leniency_level` (1-10), `custom_instructions`,
+`webhook_url`, `webhook_conditions`, `idempotency_key`.
+
+Response: `{job_id, status, status_url, results_url}`.
+
+### GET /api/v1/jobs/{id}/results
+
+Candidates sorted by score. Query params: `min_score`, `only_top_n` (max 100).
+
+### Credits
+
+`GET /api/v1/credits/balance`, `POST /api/v1/credits/purchase`,
+`GET /api/v1/credits/packs`, `POST /api/v1/credits/auto-reload/enable|disable`.
+
+### Agent keys
+
+`GET/POST /api/v1/agent-keys`, `GET/PUT/DELETE /api/v1/agent-keys/{id}`,
+`POST /api/v1/agent-keys/{id}/regenerate`, `GET /api/v1/agent-keys/{id}/usage`.
+
+### Calendar
+
+`GET/POST /api/v1/calendar/connections`, `GET /api/v1/calendar/slots`,
+`POST /api/v1/interviews`, `POST /api/v1/meetings/links`.
+
+### MCP (stdio)
+
+`hiresquire mcp` exposes 26 tools mapping 1:1 to the REST endpoints above.
+`create_screening` accepts `resume_paths` (local files parsed client-side) or
+`resumes` (pre-parsed content).
+
+## Webhooks
+
+Set `webhook_url` on job creation. Verify `X-Webhook-Signature` via HMAC-SHA256.
+
+## Best practices
+
+- Health check (`whoami`) before starting work.
+- Handle 429 with exponential backoff; respect `retry-after`.
+- Use webhooks for batches > 10 resumes.
+- Use agent keys with spend limits for autonomous agents.
+- Idempotency keys prevent double-charges on retry.
+
+## Compliance
+
+Automated bias/disparate-impact audit (NYC LL144 / EEOC 4/5ths) with public
+certificate. Human-in-the-loop; no unilateral employment decisions.
+
+## Support
+
+info@hiresquireai.com | https://hiresquireai.com/docs
