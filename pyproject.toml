@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hiresquire"
-version = "2.0.1"
+version = "2.0.2"
 description = "HireSquire AI-powered candidate screening: unified Python SDK, CLI, and MCP server"
 readme = "README.md"
 license = {text = "MIT"}

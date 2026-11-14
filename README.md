@@ -314,6 +314,7 @@ Deprecated top-level functions emit `DeprecationWarning` and delegate to `HireSq
 - **PyPI:** https://pypi.org/project/hiresquire/
 - **GitHub:** https://github.com/bp46/hiresquire
 - **Node.js CLI (npm):** https://www.npmjs.com/package/hiresquire-cli
+- **MCP Registry:** `mcp-name: io.github.bp46/hiresquire`
 - **API Docs:** https://hiresquireai.com/docs/api
 - **Agent Docs:** https://hiresquireai.com/docs/agents
 - **Support:** info@hiresquireai.com
