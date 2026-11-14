@@ -1,0 +1,34 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.bp46/hiresquire",
+  "description": "AI-powered candidate screening, resume parsing, outreach email generation, bias audits, and interview scheduling.",
+  "repository": {
+    "url": "https://github.com/bp46/hiresquire",
+    "source": "github"
+  },
+  "version": "2.0.1",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "hiresquire",
+      "version": "2.0.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "HIRESQUIRE_API_TOKEN",
+          "description": "HireSquire API token or Agent API key (hs_...)",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "HIRESQUIRE_BASE_URL",
+          "description": "Optional API base URL override (default: https://hiresquireai.com/api/v1)",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

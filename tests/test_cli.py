@@ -14,9 +14,11 @@ def test_help():
 
 
 def test_version():
+    from hiresquire import __version__
+
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0
-    assert "2.0.0" in result.output
+    assert __version__ in result.output
 
 
 def test_init_no_token(monkeypatch):

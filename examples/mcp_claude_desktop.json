@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "hiresquire": {
+      "command": "uvx",
+      "args": ["--from", "hiresquire", "hiresquire-mcp"],
+      "env": {
+        "HIRESQUIRE_API_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
