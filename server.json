@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.bp46/hiresquire",
-  "description": "AI-powered candidate screening, resume parsing, outreach email generation, bias audits, and interview scheduling.",
+  "description": "AI candidate screening, resume parsing, outreach emails, bias audits, and interview scheduling.",
   "repository": {
     "url": "https://github.com/bp46/hiresquire",
     "source": "github"
