@@ -4,6 +4,7 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/hiresquire.svg)](https://pypi.org/project/hiresquire/)
 [![CI](https://github.com/bp46/hiresquire/actions/workflows/ci.yml/badge.svg)](https://github.com/bp46/hiresquire/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![HireSquire MCP connector](https://glama.ai/mcp/connectors/com.hiresquireai/hire-squire-agent-ecosystem/badges/score.svg)](https://glama.ai/mcp/connectors/com.hiresquireai/hire-squire-agent-ecosystem)
 
 Unified open-source Python package for **HireSquire** — AI-powered candidate screening, local resume parsing (`PDF`, `DOCX`, `TXT`, `MD`), personalized outreach emails, compliance/bias audits, credit management, and interview scheduling.
 
@@ -315,6 +316,7 @@ Deprecated top-level functions emit `DeprecationWarning` and delegate to `HireSq
 - **GitHub:** https://github.com/bp46/hiresquire
 - **Node.js CLI (npm):** https://www.npmjs.com/package/hiresquire-cli
 - **MCP Registry:** `mcp-name: io.github.bp46/hiresquire`
+- **Glama MCP Listing:** https://glama.ai/mcp/connectors/com.hiresquireai/hire-squire-agent-ecosystem
 - **API Docs:** https://hiresquireai.com/docs/api
 - **Agent Docs:** https://hiresquireai.com/docs/agents
 - **Support:** info@hiresquireai.com
